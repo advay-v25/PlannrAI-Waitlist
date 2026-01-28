@@ -9,7 +9,7 @@ const pricingPlans = [
     {
         name: 'Free',
         icon: Zap,
-        price: '$0',
+        price: '₹0',
         period: 'forever',
         description: 'Get started with the essentials',
         features: [
@@ -26,7 +26,7 @@ const pricingPlans = [
     {
         name: 'Pro',
         icon: Rocket,
-        price: '$9',
+        price: '₹499',
         period: '/month',
         description: 'For serious achievers',
         features: [
@@ -43,7 +43,7 @@ const pricingPlans = [
     {
         name: 'Elite',
         icon: Crown,
-        price: '$29',
+        price: '₹1,499',
         period: '/month',
         description: 'The ultimate life OS',
         features: [
@@ -114,8 +114,8 @@ export default function PricingSection() {
 
                             {/* Icon */}
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${plan.popular
-                                    ? 'bg-[var(--accent-primary)]'
-                                    : 'bg-[var(--accent-muted)]'
+                                ? 'bg-[var(--accent-primary)]'
+                                : 'bg-[var(--accent-muted)]'
                                 }`}>
                                 <plan.icon className={`w-6 h-6 ${plan.popular ? 'text-black' : 'text-[var(--accent-primary)]'
                                     }`} />
@@ -151,8 +151,8 @@ export default function PricingSection() {
                             <button
                                 onClick={scrollToSignup}
                                 className={`w-full py-3 rounded-lg font-medium transition-all ${plan.popular
-                                        ? 'btn-primary'
-                                        : 'btn-secondary'
+                                    ? 'btn-primary'
+                                    : 'btn-secondary'
                                     }`}
                             >
                                 {plan.cta}

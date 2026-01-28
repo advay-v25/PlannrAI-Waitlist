@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    Loader2, CheckCircle2, AlertCircle, Send, 
-    ChevronRight, ChevronLeft, User, Target, 
-    DollarSign, Sparkles 
+import {
+    Loader2, CheckCircle2, AlertCircle, Send,
+    ChevronRight, ChevronLeft, User, Target,
+    DollarSign, Sparkles
 } from 'lucide-react';
 
 // ============ TYPES ============
@@ -15,15 +15,15 @@ interface FormData {
     email: string;
     ageRange: string;
     occupation: string;
-    
+
     // Step 2: Current Situation
     currentTools: string[];
     painPoints: string[];
-    
+
     // Step 3: Wants & Needs
     topFeatures: string[];
     mainGoal: string;
-    
+
     // Step 4: Pricing & Closing
     willingToPay: string;
     priceJustification: string;
@@ -38,18 +38,18 @@ interface FormErrors {
 const AGE_RANGES = ['18-24', '25-34', '35-44', '45-54', '55+'];
 
 const OCCUPATIONS = [
-    'Student', 
-    'Employee', 
-    'Freelancer', 
-    'Entrepreneur', 
-    'Manager/Leader', 
+    'Student',
+    'Employee',
+    'Freelancer',
+    'Entrepreneur',
+    'Manager/Leader',
     'Creative Professional',
     'Other'
 ];
 
 const CURRENT_TOOLS = [
     'Notion', 'Todoist', 'Google Calendar', 'Apple Reminders',
-    'Obsidian', 'Physical Planner', 'Spreadsheets', 
+    'Obsidian', 'Physical Planner', 'Spreadsheets',
     'Trello/Asana', 'Nothing organized', 'Other'
 ];
 
@@ -87,14 +87,14 @@ const MAIN_GOALS = [
 
 const PRICE_OPTIONS = [
     { value: 'free-only', label: 'Free only', subtext: 'I\'d only use a free version' },
-    { value: '5-9', label: '$5-9/mo', subtext: 'If it saves me time' },
-    { value: '10-19', label: '$10-19/mo', subtext: 'If it truly works' },
-    { value: '20-29', label: '$20-29/mo', subtext: 'For a premium experience' },
-    { value: '30+', label: '$30+/mo', subtext: 'If it transforms my life' },
+    { value: '99-199', label: '₹99-199/mo', subtext: 'If it saves me time' },
+    { value: '299-499', label: '₹299-499/mo', subtext: 'If it truly works' },
+    { value: '599-999', label: '₹599-999/mo', subtext: 'For a premium experience' },
+    { value: '999+', label: '₹999+/mo', subtext: 'If it transforms my life' },
 ];
 
 const REFERRAL_SOURCES = [
-    'Twitter/X', 'Instagram', 'TikTok', 'YouTube', 
+    'Twitter/X', 'Instagram', 'TikTok', 'YouTube',
     'Friend referral', 'Google search', 'Other'
 ];
 
@@ -188,7 +188,7 @@ export default function SignUpForm() {
         setFormData(prev => {
             const current = prev[field];
             const maxItems = field === 'topFeatures' ? 3 : 10;
-            
+
             if (current.includes(value)) {
                 return { ...prev, [field]: current.filter(v => v !== value) };
             } else if (current.length < maxItems) {
@@ -275,36 +275,33 @@ export default function SignUpForm() {
             <div className="mb-8">
                 <div className="flex justify-between mb-3">
                     {STEPS.map((step) => (
-                        <div 
-                            key={step.id} 
-                            className={`flex flex-col items-center flex-1 ${
-                                step.id < currentStep ? 'cursor-pointer' : ''
-                            }`}
+                        <div
+                            key={step.id}
+                            className={`flex flex-col items-center flex-1 ${step.id < currentStep ? 'cursor-pointer' : ''
+                                }`}
                             onClick={() => step.id < currentStep && setCurrentStep(step.id)}
                         >
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-all ${
-                                step.id === currentStep 
-                                    ? 'bg-[var(--accent-primary)] text-black' 
-                                    : step.id < currentStep 
-                                        ? 'bg-[var(--accent-primary)]/30 text-[var(--accent-primary)]' 
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-all ${step.id === currentStep
+                                    ? 'bg-[var(--accent-primary)] text-black'
+                                    : step.id < currentStep
+                                        ? 'bg-[var(--accent-primary)]/30 text-[var(--accent-primary)]'
                                         : 'bg-[var(--bg-tertiary)] text-[var(--text-tertiary)]'
-                            }`}>
+                                }`}>
                                 {step.id < currentStep ? (
                                     <CheckCircle2 className="w-5 h-5" />
                                 ) : (
                                     <step.icon className="w-5 h-5" />
                                 )}
                             </div>
-                            <span className={`text-xs hidden sm:block ${
-                                step.id === currentStep ? 'text-white' : 'text-[var(--text-tertiary)]'
-                            }`}>
+                            <span className={`text-xs hidden sm:block ${step.id === currentStep ? 'text-white' : 'text-[var(--text-tertiary)]'
+                                }`}>
                                 {step.title}
                             </span>
                         </div>
                     ))}
                 </div>
                 <div className="h-1 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                         className="h-full bg-[var(--accent-primary)]"
                         initial={{ width: '0%' }}
                         animate={{ width: `${((currentStep - 1) / 3) * 100}%` }}
@@ -338,7 +335,7 @@ export default function SignUpForm() {
                     {currentStep === 1 && (
                         <div className="space-y-5">
                             <h3 className="text-xl font-semibold text-white mb-4">Let's get to know you</h3>
-                            
+
                             {/* Name & Email */}
                             <div className="grid md:grid-cols-2 gap-4">
                                 <div>
@@ -382,11 +379,10 @@ export default function SignUpForm() {
                                             key={age}
                                             type="button"
                                             onClick={() => handleSelect('ageRange', age)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.ageRange === age
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.ageRange === age
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            }`}
+                                                }`}
                                         >
                                             {age}
                                         </button>
@@ -406,11 +402,10 @@ export default function SignUpForm() {
                                             key={occ}
                                             type="button"
                                             onClick={() => handleSelect('occupation', occ)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.occupation === occ
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.occupation === occ
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            }`}
+                                                }`}
                                         >
                                             {occ}
                                         </button>
@@ -438,11 +433,10 @@ export default function SignUpForm() {
                                             key={tool}
                                             type="button"
                                             onClick={() => handleMultiSelect('currentTools', tool)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.currentTools.includes(tool)
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.currentTools.includes(tool)
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            }`}
+                                                }`}
                                         >
                                             {tool}
                                         </button>
@@ -463,11 +457,10 @@ export default function SignUpForm() {
                                             key={pain}
                                             type="button"
                                             onClick={() => handleMultiSelect('painPoints', pain)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.painPoints.includes(pain)
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.painPoints.includes(pain)
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            }`}
+                                                }`}
                                         >
                                             {pain}
                                         </button>
@@ -495,11 +488,10 @@ export default function SignUpForm() {
                                             key={feature}
                                             type="button"
                                             onClick={() => handleMultiSelect('topFeatures', feature)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.topFeatures.includes(feature)
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.topFeatures.includes(feature)
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            } ${formData.topFeatures.length >= 3 && !formData.topFeatures.includes(feature) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                } ${formData.topFeatures.length >= 3 && !formData.topFeatures.includes(feature) ? 'opacity-50 cursor-not-allowed' : ''}`}
                                             disabled={formData.topFeatures.length >= 3 && !formData.topFeatures.includes(feature)}
                                         >
                                             {feature}
@@ -525,11 +517,10 @@ export default function SignUpForm() {
                                             key={goal}
                                             type="button"
                                             onClick={() => handleSelect('mainGoal', goal)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.mainGoal === goal
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.mainGoal === goal
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            }`}
+                                                }`}
                                         >
                                             {goal}
                                         </button>
@@ -556,11 +547,10 @@ export default function SignUpForm() {
                                             key={option.value}
                                             type="button"
                                             onClick={() => handleSelect('willingToPay', option.value)}
-                                            className={`flex items-center justify-between p-4 rounded-lg text-left transition-all ${
-                                                formData.willingToPay === option.value
+                                            className={`flex items-center justify-between p-4 rounded-lg text-left transition-all ${formData.willingToPay === option.value
                                                     ? 'bg-[var(--accent-primary)]/20 border-2 border-[var(--accent-primary)]'
                                                     : 'bg-[var(--bg-tertiary)] border-2 border-transparent hover:border-[var(--bg-tertiary)]'
-                                            }`}
+                                                }`}
                                         >
                                             <div>
                                                 <span className={`font-medium ${formData.willingToPay === option.value ? 'text-[var(--accent-primary)]' : 'text-white'}`}>
@@ -606,11 +596,10 @@ export default function SignUpForm() {
                                             key={source}
                                             type="button"
                                             onClick={() => handleSelect('referralSource', source)}
-                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                                                formData.referralSource === source
+                                            className={`px-4 py-2 rounded-lg text-sm transition-all ${formData.referralSource === source
                                                     ? 'bg-[var(--accent-primary)] text-black font-medium'
                                                     : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]/80'
-                                            }`}
+                                                }`}
                                         >
                                             {source}
                                         </button>
