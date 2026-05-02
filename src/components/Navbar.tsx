@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -35,8 +35,12 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 {/* Logo */}
                 <div className="flex items-center gap-2">
-                    <Zap className="w-6 h-6 text-[var(--accent-primary)] icon-glow" />
-                    <span className="text-xl font-bold text-white">
+                    <img 
+                        src="/logo.png" 
+                        alt="PlannrAI Logo" 
+                        className="w-10 h-10 object-contain rounded-lg"
+                    />
+                    <span className="text-xl font-bold text-white hidden sm:block">
                         Plannr<span className="text-[var(--accent-primary)]">AI</span>
                     </span>
                 </div>

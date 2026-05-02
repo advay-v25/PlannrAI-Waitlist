@@ -13,9 +13,8 @@ interface SignUpData {
     // Step 3: Wants & Needs
     topFeatures: string;
     mainGoal: string;
-    // Step 4: Pricing & Closing
-    willingToPay: string;
-    priceJustification?: string;
+    // Step 4: Closing
+    orgBarrier: string;
     referralSource: string;
     // Metadata
     submittedAt?: string;
@@ -56,7 +55,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!data.willingToPay || !data.referralSource) {
+        if (!data.orgBarrier || !data.referralSource) {
             return NextResponse.json(
                 { error: 'Missing required fields in Step 4' },
                 { status: 400, headers: securityHeaders }
@@ -95,9 +94,8 @@ export async function POST(request: NextRequest) {
             console.log('--- WANTS & NEEDS ---');
             console.log('Top Features:', data.topFeatures);
             console.log('Main Goal:', data.mainGoal);
-            console.log('--- PRICING ---');
-            console.log('Willing to Pay:', data.willingToPay);
-            console.log('Price Justification:', data.priceJustification || 'Not provided');
+            console.log('--- CLOSING ---');
+            console.log('Organization Barrier:', data.orgBarrier);
             console.log('Referral Source:', data.referralSource);
             console.log('==============================================\n');
 
@@ -143,13 +141,12 @@ export async function POST(request: NextRequest) {
                 data.painPoints,                    // H: Pain Points
                 data.topFeatures,                   // I: Top Features
                 data.mainGoal,                      // J: Main Goal
-                data.willingToPay,                  // K: Willing to Pay
-                data.priceJustification || '',      // L: Price Justification
-                data.referralSource,                // M: Referral Source
+                data.orgBarrier,                    // K: Org Barrier
+                data.referralSource,                // L: Referral Source
             ]];
 
             const appendResponse = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:M:append?valueInputOption=USER_ENTERED`,
+                `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:L:append?valueInputOption=USER_ENTERED`,
                 {
                     method: 'POST',
                     headers: {
@@ -189,8 +186,7 @@ export async function POST(request: NextRequest) {
             console.log('Pain Points:', data.painPoints);
             console.log('Top Features:', data.topFeatures);
             console.log('Main Goal:', data.mainGoal);
-            console.log('Willing to Pay:', data.willingToPay);
-            console.log('Price Justification:', data.priceJustification || 'Not provided');
+            console.log('Org Barrier:', data.orgBarrier);
             console.log('Referral Source:', data.referralSource);
             console.log('================================================\n');
 

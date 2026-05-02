@@ -24,9 +24,8 @@ interface FormData {
     topFeatures: string[];
     mainGoal: string;
 
-    // Step 4: Pricing & Closing
-    willingToPay: string;
-    priceJustification: string;
+    // Step 4: Closing
+    orgBarrier: string;
     referralSource: string;
 }
 
@@ -85,12 +84,12 @@ const MAIN_GOALS = [
     'Be more intentional'
 ];
 
-const PRICE_OPTIONS = [
-    { value: 'free-only', label: 'Free only', subtext: 'I\'d only use a free version' },
-    { value: '99-199', label: '₹99-199/mo', subtext: 'If it saves me time' },
-    { value: '299-499', label: '₹299-499/mo', subtext: 'If it truly works' },
-    { value: '599-999', label: '₹599-999/mo', subtext: 'For a premium experience' },
-    { value: '999+', label: '₹999+/mo', subtext: 'If it transforms my life' },
+const ORG_BARRIERS = [
+    { value: 'too-many-apps', label: 'Too many apps/tools', subtext: 'Can\'t find a single source of truth' },
+    { value: 'time-consuming', label: 'Planning takes too much time', subtext: 'I spend more time planning than doing' },
+    { value: 'frequent-changes', label: 'Plans change too often', subtext: 'My schedule is too unpredictable' },
+    { value: 'follow-through', label: 'Hard to follow through', subtext: 'I make plans but don\'t stick to them' },
+    { value: 'breaking-down-goals', label: 'Hard to break down big goals', subtext: 'I don\'t know where to start' },
 ];
 
 const REFERRAL_SOURCES = [
@@ -102,7 +101,7 @@ const STEPS = [
     { id: 1, title: 'About You', icon: User },
     { id: 2, title: 'Current State', icon: Target },
     { id: 3, title: 'What You Need', icon: Sparkles },
-    { id: 4, title: 'Final Details', icon: DollarSign },
+    { id: 4, title: 'Final Details', icon: Sparkles },
 ];
 
 // ============ COMPONENT ============
@@ -117,8 +116,7 @@ export default function SignUpForm() {
         painPoints: [],
         topFeatures: [],
         mainGoal: '',
-        willingToPay: '',
-        priceJustification: '',
+        orgBarrier: '',
         referralSource: '',
     });
     const [errors, setErrors] = useState<FormErrors>({});
@@ -153,7 +151,7 @@ export default function SignUpForm() {
         }
 
         if (step === 4) {
-            if (!formData.willingToPay) newErrors.willingToPay = 'Please select a pricing option';
+            if (!formData.orgBarrier) newErrors.orgBarrier = 'Please select your biggest barrier';
             if (!formData.referralSource) newErrors.referralSource = 'Let us know how you found us';
         }
 
@@ -536,53 +534,37 @@ export default function SignUpForm() {
                         <div className="space-y-6">
                             <h3 className="text-xl font-semibold text-white mb-4">Almost there!</h3>
 
-                            {/* Willingness to Pay */}
+                            {/* Organization Barrier */}
                             <div>
                                 <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
-                                    What would you be willing to pay for a life-changing productivity tool? *
+                                    What is your biggest barrier to being organized? *
                                 </label>
                                 <div className="grid gap-2">
-                                    {PRICE_OPTIONS.map(option => (
+                                    {ORG_BARRIERS.map(option => (
                                         <button
                                             key={option.value}
                                             type="button"
-                                            onClick={() => handleSelect('willingToPay', option.value)}
-                                            className={`flex items-center justify-between p-4 rounded-lg text-left transition-all ${formData.willingToPay === option.value
+                                            onClick={() => handleSelect('orgBarrier', option.value)}
+                                            className={`flex items-center justify-between p-4 rounded-lg text-left transition-all ${formData.orgBarrier === option.value
                                                     ? 'bg-[var(--accent-primary)]/20 border-2 border-[var(--accent-primary)]'
                                                     : 'bg-[var(--bg-tertiary)] border-2 border-transparent hover:border-[var(--bg-tertiary)]'
                                                 }`}
                                         >
                                             <div>
-                                                <span className={`font-medium ${formData.willingToPay === option.value ? 'text-[var(--accent-primary)]' : 'text-white'}`}>
+                                                <span className={`font-medium ${formData.orgBarrier === option.value ? 'text-[var(--accent-primary)]' : 'text-white'}`}>
                                                     {option.label}
                                                 </span>
                                                 <span className="text-[var(--text-tertiary)] text-sm ml-2">
                                                     {option.subtext}
                                                 </span>
                                             </div>
-                                            {formData.willingToPay === option.value && (
+                                            {formData.orgBarrier === option.value && (
                                                 <CheckCircle2 className="w-5 h-5 text-[var(--accent-primary)]" />
                                             )}
                                         </button>
                                     ))}
                                 </div>
-                                {errors.willingToPay && <p className="text-red-400 text-sm mt-2">{errors.willingToPay}</p>}
-                            </div>
-
-                            {/* What would make you pay (optional) */}
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                                    What would make you happily pay for this?
-                                    <span className="text-[var(--text-tertiary)] font-normal ml-2">(Optional)</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    name="priceJustification"
-                                    value={formData.priceJustification}
-                                    onChange={handleChange}
-                                    className="form-input"
-                                    placeholder="E.g., 'If it actually helped me stick to my goals'"
-                                />
+                                {errors.orgBarrier && <p className="text-red-400 text-sm mt-2">{errors.orgBarrier}</p>}
                             </div>
 
                             {/* Referral Source */}

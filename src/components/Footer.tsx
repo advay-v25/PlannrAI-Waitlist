@@ -1,6 +1,6 @@
 'use client';
 
-import { Zap } from 'lucide-react';
+
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -20,7 +20,11 @@ export default function Footer() {
                     {/* Logo & Tagline */}
                     <div className="flex flex-col items-center md:items-start gap-2">
                         <div className="flex items-center gap-2">
-                            <Zap className="w-5 h-5 text-[var(--accent-primary)]" />
+                            <img 
+                                src="/logo.png" 
+                                alt="PlannrAI Logo" 
+                                className="w-8 h-8 object-contain rounded-md"
+                            />
                             <span className="text-lg font-bold text-white">
                                 Plannr<span className="text-[var(--accent-primary)]">AI</span>
                             </span>
